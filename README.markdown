@@ -1,5 +1,4 @@
-
-[Chrome Extensions]
+Chrome Extensions
 =================
 
 This repository contains 5 chrome extensions developed by me. Most of these are available on the chrome webstore and some to come soon.
