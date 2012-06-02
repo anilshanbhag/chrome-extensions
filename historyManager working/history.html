@@ -1,0 +1,253 @@
+
+<!DOCTYPE HTML> 
+<html> 
+<head> 
+<meta charset="utf-8"> 
+<title i18n-content="title"></title> 
+<link rel="icon" href="logo16.png"> 
+<script>
+window.onload = init;
+
+function init(){
+	var microsecondsPerDay = 1000 * 60 * 60 * 24 ;
+	var oneDayAgo = (new Date).getTime() - microsecondsPerDay;
+	chrome.history.search({
+      'text': '',              
+      'startTime': oneDayAgo  
+    },
+    function(historyItems) {
+      var container = document.getElementById("container"); 
+      for(var i=0;i<historyItems.length;i++){
+		createElem(historyItems[i]);		
+      }
+    });
+}
+ 
+function createElem(historyObj) {
+  var container = document.getElementById("results-display");
+  var node = document.createElement('div');
+  node.className = 'entry';
+  var time = document.createElement('div');
+  time.className = 'time';
+  time.appendChild(document.createTextNode(new Date(parseInt(historyObj.lastVisitTime))));
+  node.appendChild(time);
+  var title = document.createElement('div');
+  title.className = 'title';
+  var link = document.createElement('a');
+  link.href = historyObj.url;
+  link.style.backgroundImage = 'url(chrome://favicon/' + encodeURIForCSS(historyObj.url) + ')';
+  link.id = "id-" + historyObj.id;
+  link.appendChild(document.createTextNode(historyObj.title));
+  title.appendChild(link);
+  node.appendChild(title);
+  container.appendChild(node);  
+};
+
+function encodeURIForCSS(uri) {
+  // CSS uris need to have '(' and ')' escaped.
+  return uri.replace(/\(/g, "\\(").replace(/\)/g, "\\)");
+}
+
+</script> 
+<style>
+body {
+  font-family: Arial, sans-serif;
+  font-size: 84%;
+  background-color:white;
+  color:black;
+  margin:10px;
+}
+
+.header {
+  overflow:auto;
+  clear:both;
+}
+
+.header .logo {
+  float:left;
+}
+
+.header .form {
+  float:left;
+  margin-top:22px;
+  -webkit-margin-start:12px;
+}
+
+html[dir='rtl'] .logo {
+  float:right;
+}
+
+html[dir='rtl'] .form {
+  float:right;
+}
+
+.page-navigation {
+  padding:8px;
+  background-color:#ebeff9;
+  -webkit-margin-end:4px;
+}
+
+.footer {
+  height:24px;
+}
+</style> 
+<style> 
+#results-separator {
+  margin-top:12px;
+  border-top:1px solid #9cc2ef;
+  background-color:#ebeff9;
+  font-weight:bold;
+  padding:3px;
+  margin-bottom:-8px;
+}
+#results-separator table {
+  width: 100%;
+}
+#results-summary {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 50%;
+}
+#edit-button {
+  text-align: end;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 50%;
+}
+#editing-controls button {
+  margin-top: 18px;
+  margin-bottom: -8px;
+}
+#results-display {Page.prototype.getTitleDOM_ = function() {
+  var node = document.createElement('div');
+  node.className = 'title';
+  var link = document.createElement('a');
+  link.href = this.url_;
+ 
+  link.style.backgroundImage =
+      'url(chrome://favicon/' + encodeURIForCSS(this.url_) + ')';
+  link.id = "id-" + this.id_;
+  this.addHighlightedText_(link, this.title_, this.model_.getSearchText());
+ 
+  node.appendChild(link);
+ 
+  if (this.starred_) {
+    node.className += ' starred';
+    node.appendChild(createElementWithClassName('div', 'starred'));
+  }
+ 
+  return node;
+};
+  max-width:740px;
+}
+.day {
+  margin-top:18px;
+  padding:0px 3px;
+  display:inline-block;
+}
+.edit-button {
+  display: inline;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  color: blue; /* -webkit-link makes it purple :'( */
+  cursor: pointer;
+  text-decoration: underline;
+  padding:0px 9px;
+  display:inline-block;
+  font:inherit;
+}
+.gap {
+  margin-left:18px;
+  width:15px;
+  border-right:1px solid #ddd;
+  height:14px;
+}
+.entry {
+  margin-left:18px;
+  margin-top:6px;
+  overflow:auto;
+}
+table.results {
+  margin-left:4px;
+}
+.entry .time {
+  color:#888;
+  float:left;
+  min-width:56px;
+  -webkit-margin-end:5px;
+  padding-top:1px;
+  white-space:nowrap;
+}
+html[dir='rtl'] .time {
+  float:right;
+}
+.entry .title {
+  max-width:600px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.results .time, .results .title {
+  margin-top:18px;
+}
+.title > .starred {
+  background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAB80lEQVQYGQXBXUhTYQAG4Pf7znfO/qJpHklBcw4SdTS3tF8wN2q2BiVMZxgkJMHqIugiCEy8sBkE3XUxiJRJUXQzSsWUEEsjdZBJFtWG28IuVq4azra5nbPT87DzPWHYTurx66cExhEkk8V783M/rtbU7vWLIndDrSFoNKkwN5sCAwBFAXQ6iooKoSG6nnB4+x5pJ2c6HYbaAw28IH1RFAUAwCgFBJ6W53mCb2HSJpbGzR7PONY+G8yxuKXNZEJSpSKgFJsslyO3wuGCT8rLiERkdJxZREl5AsbqEILTnX6dlvdLEsF2mgywT2ubvtYjARw8vA4puxsW6yqUPMPF3mU0mvshaIuYDEr4sHLFx5yuqo35t7pqU/0y2s9+B/IaFAsCysQkHPZnmJrW4GukD05X5QZrP73LtrR0+eYlb5N7jN4WTzk/ghYBQMbIqBEDQ9eTXT3dwdYT7C5Tq0m05RDnXV2ps/7dqhEVOYTU7yz0pQSUctgjHo/V7SfezD8ZLLejQKsVBsWyLeux5vcIPKzE+Es7zrne4GhLFPuqQlaOGQdTqZ0hNvE8DUClz2xPsQcjBDOvh1GQ7cHA05B7YXEYKv4dm3jh0gM5sCaLGjxPs2OjzZl0xoYLvfX3Z1/96e/qdt558thwLR5LwO3hspKkwX/RB7soMZzqHQAAAABJRU5ErkJggg==");
+  background-repeat:no-repeat;
+  display:inline-block;
+  -webkit-margin-start:12px;
+  -webkit-margin-end:0;
+  width:11px;
+  height:11px;
+}
+.entry .title > a {
+  box-sizing: border-box;
+  background-repeat:no-repeat;
+  background-size:16px;
+  background-position:0px 1px;
+  padding:1px 0px 4px 22px;
+  display:inline-block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+html[dir='rtl'] .entry .title > a {
+  background-position-x:right;
+  padding-left:0px;
+  padding-right:22px;
+}
+#results-pagination {
+  padding-top:24px;
+  -webkit-margin-start:18px;
+}
+ 
+</style> 
+</head> 
+<body i18n-values=".style.fontFamily:fontfamily;.style.fontSize:fontsize"> 
+<div class="header"> 
+  <a href="" onclick="setSearch(''); return false;"> 
+  	<img src="clock.png" width="67" height="67" class="logo" border="0"> 
+    </a> 
+  <form method="post" action=""
+      onsubmit="setSearch(this.term.value); return false;"
+      class="form"> 
+    <input type="text" name="term" id="term"> 
+    <input type="submit" name="submit" i18n-values="value:searchbutton"> 
+  </form> 
+</div> 
+<div class="main"> 
+  <div id="results-separator"> 
+    <table border="0" cellPadding="0" cellSpacing="0"> 
+      <tr><td id="results-summary"></td><td id="edit-button"><p></p></td></tr> 
+    </table> 
+  </div> 
+  <div id="editing-controls"></div> 
+  <div id="results-display"></div> 
+  <div id="results-pagination"></div> 
+</div> 
+<div class="footer"> 
+</div> 
+</body> 
+</html> 
+

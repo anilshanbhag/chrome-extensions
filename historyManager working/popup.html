@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Recently Typed URLs</title>
+    <style>
+    	body {min-width: 300px;min-height: 400px;font-family: Arial,Helvetica,sans-serif;}
+	    a {text-decoration: none;}	
+		a:link {color:#001A82;}
+		a:visited {color:#000080;}
+		a:hover {text-decoration: underline;}
+    </style>
+    <script type="text/javascript" src="showHistory.js">
+    </script>
+    <script type="text/javascript" src="popup.js">
+    </script>
+</head>
+
+  <body>
+  	<h3> Current Tab Stats </h3>
+  	<div id="tabstats">
+  		<ul>
+  			<li>URL: <a href="#" id="url"></a></li>
+  			<li>Visit Count : <span id="visitCount"></span></li>
+  			<li>Last Visit : <span id="lastVisit"></span></li>
+  		</ul>
+  	</div>
+    <h2>Recently Typed URLs:</h2>
+    <div id='typedUrl_div'></div>
+    <div id='my_div'></div>
+    <p style="border-style:solid;text-align:center;width:150px;height:30px;-webkit-border-radius:20px;valign:center" ><a href="history.html" id="manager"> Open Manager </a></p>
+  </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Secure Password PopUp|Chrome Extension</title>
+	<style type="text/css">
+	* {
+		font-family:Arial,Helvetica,sans-serif;
+		font-size: 14px;
+	}
+	
+	body {
+		margin: 0;
+		padding: 0;
+		background-color:black;
+	}
+	div {
+		margin: 3px;
+		height: 53px;
+		min-width: 340px;
+	}
+	#header {
+		background: url(images/chrome-extension.png) 0 0 no-repeat;
+	}
+	#div1{
+		background: url(images/pass1.png) 0 0 no-repeat;
+	}
+	#div2{
+		background: url(images/pass2.png) 0 0 no-repeat;
+	}
+	#div3{
+		background: url(images/pass3.png) 0 0 no-repeat;
+	}
+	#div4{
+		background: url(images/pass4.png) 0 0 no-repeat;
+	}
+	#pass1 {
+		border: none;
+		height: 18px;
+		left: 185px;
+		outline: none;
+		position: absolute;
+		top: 75px;
+		width: 120px;
+	}
+	#pass2 {
+		border: none;
+		height: 18px;
+		left: 185px;
+		outline: none;
+		position: absolute;
+		top: 131px;
+		width: 120px;
+	}
+	#pass3 {
+		border: none;
+		height: 18px;
+		left: 185px;
+		outline: none;
+		position: absolute;
+		top: 187px;
+		width: 120px;
+	}
+	#pass4 {
+		border: none;
+		height: 18px;
+		left: 185px;
+		outline: none;
+		position: absolute;
+		top: 243px;
+		width: 120px;
+	}
+	.submitArea {
+		width: 22px;
+		height: 22px;
+		position: relative;
+		left: 382px;
+		top: 15px;
+		background: none;
+		border: none;
+		cursor: pointer;
+	}
+	#bot{
+		height:0px;
+		margin-bottom:30px;
+		text-color:#FFFFFF;
+	}
+	</style>
+	<script type="text/javascript">
+	window.onload = init;
+	function init(){
+		document.getElementById("options").onclick = openPage;
+		if(!(localStorage["pass1"]) && !(localStorage["pass1"]) && !(localStorage["pass2"]) && !(localStorage["pass3"]) && !(localStorage["pass4"])){
+		document.getElementById("bot").innerHTML = "<p>Please configure the tool : <a href='options.html'>config page</a></p>";
+		}
+		if(localStorage["pass1"]){
+		document.getElementById("pass1").value = localStorage["pass1"];
+		}
+		if(localStorage["pass2"]){
+		document.getElementById("pass2").value = localStorage["pass2"];
+		}
+		if(localStorage["pass3"]){
+		document.getElementById("pass3").value = localStorage["pass3"];
+		}
+		if(localStorage["pass4"]){
+		document.getElementById("pass4").value = localStorage["pass4"];
+		}
+			
+		
+	}
+	function openPage(){
+  		chrome.tabs.create({url:"options.html"});
+	}
+	</script>
+</head>
+<body>
+	<a id="options" href="options.html"><div id="header"></div></a>
+	<div id="div1" class="inputform">
+  		<input name="pass1" type="text" value="" id="pass1" size="5"/>
+  		<input class="submitArea" type="submit" value="" />
+  	</div>
+  	<div id="div2">
+  		<input name="pass2" type="text" value="" id="pass2" size="5">
+  		<input class="submitArea" type="submit" value="" />
+  	</div>
+  	<div id="div3">
+  		<input name="pass3" type="text" value="" id="pass3" size="5">
+  		<input class="submitArea" type="submit" value="" />
+  	</div>
+  	<div id="div4">
+  		<input name="pass4" type="text" value="" id="pass4" size="5">
+  		<input class="submitArea" type="submit" value="" />
+  	</div>
+  	<div id="bot" align="center">
+  		
+  	</div> 
+</body>
+</html>

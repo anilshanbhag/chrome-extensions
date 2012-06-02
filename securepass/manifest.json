@@ -1,0 +1,18 @@
+{
+  "name": "Secure Password",
+  "version": "1.0.1",
+  "description": "Generate a secure password",
+  "permissions": ["tabs"],
+  "icons": {
+      "128": "logo128.png",
+      "16": "logo16.png", 
+      "32": "logo32.png",
+      "48": "logo48.png"
+   },
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": "logo128.png"
+  },
+  "options_page": "options.html",
+  "update_url": "http://clients2.google.com/service/update2/crx"
+}

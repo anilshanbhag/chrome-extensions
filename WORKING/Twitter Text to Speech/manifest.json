@@ -1,0 +1,16 @@
+{
+  "name": "Twitter Tweet to Speech",
+  "version": "1.1.0",
+  "description": "An extension used to read out your tweets",
+  "content_scripts": [
+    {
+      "matches": ["http://twitter.com/*","https://twitter.com/*"],
+      "js": ["app.js"]
+    }
+  ],
+  "background_page":"background.html",
+  "permissions": [
+  "http://translate.google.com/",
+  "http://*.google.com/*"
+  ]
+}

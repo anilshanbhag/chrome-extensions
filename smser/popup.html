@@ -1,0 +1,37 @@
+<html>
+<body>
+<a id="options" href="options.html"><div id="header"></div></a>
+<div id='form'>
+	<form action="#" onsubmit="return ajaxify();">
+		<label for='to'>To : <input type='text' name='to' /></label>
+		<label for='message'>
+			<textarea rows="5" cols="20"></textarea>
+			<input type='hidden' name='message' id='message' />
+		</label>	
+		<input type='submit' value='send sms' />
+	</form>
+</div>
+<script type='text/javascript'>
+function ajaxify(){
+	var url = "http://localhost/anil/sms.php";
+	var params = "lorem=ipsum";
+	var http = new XMLHttpRequest();
+	http.open("POST", url, true);
+
+	//Send the proper header information along with the request
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	http.setRequestHeader("Content-length", params.length);
+	http.setRequestHeader("Connection", "close");
+
+	http.onreadystatechange = function() {//Call a function when the state changes.
+		if(http.readyState == 4 && http.status == 200) {
+			alert(http.responseText);
+			return false;
+		}
+	}
+	http.send(params);
+}
+</script>
+</body>
+</html>
+

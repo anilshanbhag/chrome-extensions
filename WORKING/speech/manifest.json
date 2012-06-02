@@ -1,0 +1,15 @@
+{
+  "name": "Voice In",
+  "version": "2.1",
+  "description": "Speak into all text input fields.Seamlessly integrates chrome 11+ new speech feature into all text fields.",
+  "icons": {
+      "128": "icon.png",
+      "64": "icon64.png"
+   },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*","https://*/*"],
+      "js": ["addSpeech.js"]
+    }
+  ]
+}

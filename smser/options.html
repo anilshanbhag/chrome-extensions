@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>Secure Password Options|Chrome Extension</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="shortcut icon" href="favicon.ico">
+	<script type="text/javascript" src="sha1.js"></script>
+	<style type="text/css">
+	#content {
+		width: 573px;
+		margin: 30px auto;
+	}
+	
+	#logo {
+		background: url("images/header.png")  no-repeat;
+		display:block;
+		height:43px;
+		left:93px;	
+		width:352px;
+		margin: 10px auto;
+	}
+	
+	.main-pod {
+		padding: 0;
+		text-align: left;
+	}
+	
+	.main-pod .top {
+		width: 576px;
+		height: 20px;
+		background: transparent url(images/example-pod-top.png) no-repeat scroll 0 0;
+	}
+	
+	.main-pod .top-header {
+		height: 64px;
+		background: transparent url(images/main-pod-top.png) no-repeat scroll 0 0;
+		position: relative;
+	}
+	
+	.main-pod .mid {
+		padding: 12px 40px;
+		background: transparent url(images/example-pod-mid.png) repeat-y scroll 0 0;
+	}
+	
+	.main-pod .bot {
+		height: 20px;
+		background: transparent url(images/example-pod-bot.png) no-repeat scroll 0 0;
+		position: relative;
+		width: 576px;
+	}
+	
+	.main-pod .header {
+		padding: 28px 0 0 40px;
+		color: #db0303;
+		font-size: 19px;
+		line-height: 25px;
+		font-family: georgia, arial, Helvetica, serif;
+	}
+	.download-pod {
+		width: 534px;
+		margin-bottom: 10px;
+		font-family: arial, helvetica, serif;
+		font-size: 12px;
+		color: #838383;
+	}
+	
+	.download-pod .top {
+		width: 534px;
+		height: 44px;
+		background: transparent url(images/download-pod-top.png) no-repeat scroll 0 0;
+		position: relative;
+	}
+	
+	.download-pod .mid {
+		padding: 16px 0 0 16px;
+		width: 534px;
+		background: transparent url(images/download-pod-middle.png) repeat-y scroll 0 0;
+	}
+	
+	.download-pod .bot {
+		height: 14px;
+		background: transparent url(images/download-pod-bottom.png) no-repeat scroll 0 0;
+	}
+	
+	.download-pod .top img {
+		position: absolute;
+		right: 12px;
+		top: 14px;
+	}
+	
+	.download-pod .top .header {
+		margin: 0;
+		padding: 20px 0 4px 18px;
+		font-family: arial, sans-serif;
+		font-size: 13px;
+		line-height: 13px;
+	}
+	
+	.radio {
+		position: relative;
+		top: 3px;
+	}
+	
+	label {
+		padding-right: 10px;
+	}
+	
+	span{
+		padding-left:10px;
+	}
+	
+	.save {
+		background: url(images/save_btn.gif) 0 0 no-repeat;
+		width: 48px;
+		height: 26px;
+		background-color: transparent;
+		border: none;
+		position: relative;
+		top: -5px;
+		margin-left: 15px;
+	}
+	
+	.save:hover {
+		background-position: 0 -26px;
+	}
+
+	#footer {
+		font-family: arial, helvetica, sans-serif;
+		font-size: 9px;
+		color: #999999;
+		margin: 20px auto;
+		width: 410px;
+	}
+	
+	#footer a, #footer a:visited {
+		text-decoration: none;
+		color: #999999;
+	}
+	
+	#footer a:hover {
+		color: #DB0303;
+	}
+	
+	#footer ul {
+		width: 410px;
+		margin: 0 auto 10px;
+		padding: 0 0 0 10px;
+		min-height: 14px;
+		list-style: none outside none;
+	}
+	
+	#footer ul li {
+		float: left;
+		margin: 0 auto;
+		padding: 0;
+		padding-left: 18px;
+		padding-right: 19px;
+		background: transparent url(images/pipe.gif) no-repeat scroll 0 70%;
+	}
+	
+	
+	#footer ul li:first-child {
+		background: transparent none no-repeat scroll 0 0;
+		padding-left: 0;
+	}
+	
+	#footer ul li:last-child {
+		padding-right: 0;
+	}
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+
+// Saves options to localStorage.
+function saveOptions(id) {
+	var val = document.getElementById(id).value;
+	if(val){
+		localStorage[id] = SHA1(val);
+		var status = document.getElementById("status" + id);
+		status.innerHTML = "Options saved.";
+		setTimeout(function() {
+		  status.innerHTML = "";
+		}, 750);
+	}
+	else{
+		var status = document.getElementById("status" + id);
+		status.innerHTML = "Field EMPTY : try again";
+		setTimeout(function() {
+	  		status.innerHTML = "";
+		}, 750);
+	}
+	// Update status to let user know options were saved.
+	
+}
+
+</script>
+<div id="content">
+<a id="logo" href="http://www.codextrix.co.cc/securepass"></a>
+<div class="main-pod">
+	<div class="top-header">
+		<div class="header">Chrome Extension Options</div>
+	</div>
+	<div class="mid" style="padding: 11px 21px 0;">
+		<div id="chromeExtension" class="download-pod">
+			<div class="top">
+				<div class="header">Passkey 1</div>
+			</div>
+			<div class="mid">
+				<input type="text" id="pass1" value="" />
+				<button class="save" onclick="saveOptions('pass1')"></button><span id="statuspass1"></span>
+			</div>
+			<div class="bot">&nbsp;</div>
+		</div>
+		<div id="chromeExtension1" class="download-pod">
+			<div class="top">
+				<div class="header">Passkey 2</div>
+			</div>
+			<div class="mid">
+				<input type="text" id="pass2" value="" />
+				<button class="save" onclick="saveOptions('pass2')"></button><span id="statuspass2"></span>
+			</div>
+			<div class="bot">&nbsp;</div>
+		</div>
+		<div id="chromeExtension1" class="download-pod">
+			<div class="top">
+				<div class="header">Passkey 3</div>
+			</div>
+			<div class="mid">
+				<input type="text" id="pass3" value="" />
+				<button class="save" onclick="saveOptions('pass3')"></button><span id="statuspass3"></span>
+			</div>
+			<div class="bot">&nbsp;</div>
+		</div>
+		<div id="chromeExtension1" class="download-pod">
+			<div class="top">
+				<div class="header">Passkey 4</div>
+			</div>
+			<div class="mid">
+				<input type="text" id="pass4" value="" />
+				<button class="save" onclick="saveOptions('pass4')"></button><span id="statuspass4"></span>
+			</div>
+			<div class="bot">&nbsp;</div>
+		</div>
+		<div style="height: 1px; clear:both;"></div>
+	</div>
+	<div id="bot" class="bot">&nbsp;</div>
+	
+	<div id="footer">
+		<ul>
+			<li><a href="http://www.codestrix.co.cc/">www.codestrix.co.cc</a></li>
+			<li>&copy; Anil Shanbhag </li>
+		</ul>
+	</div>
+	
+</div>
+</div>
+</body>
+</html>
