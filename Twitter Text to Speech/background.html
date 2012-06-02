@@ -1,0 +1,24 @@
+<html>
+<head>
+<script type='text/javascript'>
+chrome.extension.onRequest.addListener(
+  function(request, sender, sendResponse) {
+    console.log(sender.tab ?
+                "from a content script:" + sender.tab.url :
+                "from the extension");
+    console.log(request.param);
+  	var audio = new Audio();
+	audio.addEventListener('load',function(){
+		console.log('loaded');
+		audio.play();
+	},false);
+	audio.addEventListener('error',function(){
+		console.log(this.error);
+	},false);	
+	audio.src = request.param;
+	audio.play();
+  	sendResponse({farewell: "done"});
+  });
+</script>
+</head>
+</html>

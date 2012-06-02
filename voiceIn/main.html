@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html profile="http://www.w3.org/2005/10/profile"> 
+<head>
+<link rel="icon" 
+      type="image/png" 
+      href="icon_16.png">
+<title> Speech Recognizer </title>
+<style type="text/css">
+body {
+	background: #F5F5F5;
+}
+#container{
+	margin:0 auto;
+	clear:both;
+	width:800px;
+	margin-top:20px;
+}
+
+#instructions{
+	margin-top:10px;
+	display:block;
+	background:#fff;
+	border-radius:10px;
+	padding:10px;
+	border: 2px solid #E6E6E6;
+	font-size:16px;
+}
+
+#footer{
+	margin-top:5px;
+	font-size:14px;
+	color:#555;
+}
+#footer a{
+	text-decoration:none;
+}
+#title {
+	display:block;
+	background:#fff;
+	border-radius:10px;
+	border: 2px solid #E6E6E6;
+}
+#tool {
+	display:block;
+	background:#fff;
+	border-radius:10px;
+	margin-top:10px;
+	border: 2px solid #E6E6E6;
+}
+
+textarea {
+	border:none;
+	border-color: Transparent;
+}
+:focus {
+	outline-color: Transparent;
+}
+#append {
+	color: #fff;
+	text-decoration: none;
+	display: inline-block;
+	padding: 4px 10px;
+	-webkit-border-radius: 5px;
+	background-image: -webkit-gradient(linear, left top, left bottom,
+	 from(#7d828c),
+	 color-stop(0.5, #303749),
+	 color-stop(0.5, #121a2e),
+	 to(#121a2e));
+	border: solid 1px rgba(79, 79, 79, 0.75);
+}
+#append:hover {
+	background-image: -webkit-gradient(linear, left top, left bottom,
+		from(#4286f5),
+		color-stop(0.5, #4286f5),
+		color-stop(0.5, #194fdb),
+		to(#194fdb));
+}
+#input {
+	border-radius:5px;
+}
+</style>
+<script type="text/javascript">
+function append(){
+	console.log('triggered');
+	document.getElementById("textBox").value += document.getElementById("input").value + " ";
+}
+function toggle(){
+	console.log("triggered");
+	var ad = document.getElementById("bit");
+	var help = document.getElementById("help");
+	var bit = new String(ad.src);
+	if(bit.indexOf("0.png") != -1){
+		console.log(bit.indexOf("0"));
+		console.log(ad.src);
+		ad.src = "1.png";
+		help.style.display = "";		
+	}
+	else{
+		ad.src = "0.png";
+		help.style.display = "none";
+	}
+}
+</script>
+</head>
+<body>
+<div id="container" align="center">
+<div id="title">
+	<img src="title.png"/>
+	<input id="input" type="text" size="80" x-webkit-speech="" onclick="clear();" />
+	<input type="button" id="append" value="Add to TextBox" onclick="append();">
+</div>
+<div id="tool">
+	<br/>
+	<textarea rows="15" cols="94" id="textBox"></textarea>
+</div>
+<div id="instructions">
+	<b>How to use:</b><a href="#" onclick="toggle();"><img id="bit" style="float:right;padding-right:5px;" src="0.png" /></a><p id="help" style="display:none;">Click on microphone ,speak in.The output in displayed in the field.<br>Click on "Add to TextBox" to add the text to text box below.</p>
+</div>
+</div>
+<div id="footer" align="center">
+&copy;
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type"></span><a xmlns:cc="http://creativecommons.org/ns#" href="http://www.anilshanbhag.in" property="cc:attributionName" rel="cc:attributionURL"> anilshanbhag.in </a>
+</div>
+</body>
+</html>
