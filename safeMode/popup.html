@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Safe Mode :: PopUp</title>
+        <link rel="stylesheet" href="popup.css">
+        <script type="text/javascript" src="popup.js">
+        </script>
+    </head>
+    <body>
+    <div class="sectionBar"><h3> Current Tab </h3></div>
+    <div id="tabstats">
+        <ul>
+            <li>URL: <a href="#" id="url"></a></li>
+            <li>Visit Count : <span id="visitCount"></span></li>
+            <li>Last Visit : <span id="lastVisit"></span></li>
+            <li>Safe Mode : <span id="safeModeStatus"></span></li>
+        </ul>
+    </div>
+    <div class="sectionBar"><h3> Add to SafeMode </h3></div>
+    <div id="addEntry">
+        <form>
+            <input type="text" id="regex" />
+            <input type="submit" onclick="formHandler( )" value="+" />
+        </form>
+    </div>
+    <div id="entries">
+        <div class="entry"></div>
+    </div>
+    </body>
+</html>
