@@ -1,0 +1,15 @@
+{
+  "name": "Speech Recognizer",
+  "description": "Offline speech recognizer for chrome.",
+  "version": "5.0",
+  "app": {
+    "launch": {
+      "local_path": "index.html"
+    }
+  },
+  "manifest_version" : 2,
+  "icons": {
+    "16": "icon_16.png",
+    "128": "icon_128.png"
+  }
+}
