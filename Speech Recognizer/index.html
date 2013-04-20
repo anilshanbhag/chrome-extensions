@@ -18,9 +18,8 @@
   <body style="zoom: 1;">
 
 <div class="container">
-  <div class="hero-unit">
-    <h1>Speech Recognizer <small>now bootstrapified</small></h1>
-    <hr>
+  <div class="hero-unit" style="padding-top:10px;">
+    <h2>Speech Recognizer <small>now bootstrapified</small></h2>
     <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
       <div class="btn-group">
         <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font"><i class="icon-font"></i><b class="caret"></b></a>
@@ -60,9 +59,7 @@
 			    <button class="btn" type="button">Add</button>
         </div>
         <a class="btn" data-edit="unlink" title="" data-original-title="Remove Hyperlink"><i class="icon-cut"></i></a>
-
       </div>
-      
       <div class="btn-group">
         <a class="btn" title="" id="pictureBtn" data-original-title="Insert picture (or just drag &amp; drop)"><i class="icon-picture"></i></a>
         <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 36px; height: 30px;">
@@ -71,20 +68,18 @@
         <a class="btn" data-edit="undo" title="" data-original-title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
         <a class="btn" data-edit="redo" title="" data-original-title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
       </div>
-      <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="" style="position: absolute; top: 220px; left: 1128px;">
-    </div>
-    <div class="btn-toolbar">
       <div class="btn-group">
-        <select id="select_language">
+        <select id="select_language" style="width:115px; margin-right:5px;">
           <option value="0">Afrikaans</option><option value="1">Bahasa Indonesia</option><option value="2">Bahasa Melayu</option><option value="3">Català</option><option value="4">Čeština</option><option value="5">Deutsch</option><option value="6">English</option><option value="7">Español</option><option value="8">Euskara</option><option value="9">Français</option><option value="10">Galego</option><option value="11">Hrvatski</option><option value="12">IsiZulu</option><option value="13">Íslenska</option><option value="14">Italiano</option><option value="15">Magyar</option><option value="16">Nederlands</option><option value="17">Norsk bokmål</option><option value="18">Polski</option><option value="19">Português</option><option value="20">Română</option><option value="21">Slovenčina</option><option value="22">Suomi</option><option value="23">Svenska</option><option value="24">Türkçe</option><option value="25">български</option><option value="26">Pусский</option><option value="27">Српски</option><option value="28">한국어</option><option value="29">中文</option><option value="30">日本語</option><option value="31">Lingua latīna</option>
         </select>
-        <select id="select_dialect" style="visibility: hidden;">
+        <select id="select_dialect" style="visibility: hidden; width: 130px;">
             <option value="ko-KR">undefined</option>
         </select>
       </div>
+      <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="" style="position: absolute; top: 220px; left: 1128px;">
     </div>
     <div id="editor" contenteditable="true"><br></div><br/>
-    <div id="news"><a href="http://exzalt.co.in">&copy; Exzalt</a> &nbsp; | &nbsp; <a href="http://exzalt.co.in/#contact-area">Support<a> &nbsp; | &nbsp; <a href="https://chrome.google.com/webstore/detail/speech-recognizer/aomjekmpappghadlogpigifkghlmebjk">Rate Me</a></div>
+    <div id="news"><a href="http://exzalt.co.in">&copy; Exzalt</a> &nbsp; | &nbsp; <a href="http://exzalt.co.in/#contact-area">Support</a> &nbsp; | &nbsp; <a href="https://chrome.google.com/webstore/detail/speech-recognizer/aomjekmpappghadlogpigifkghlmebjk">Rate Me</a></div>
   </div>
 </div>
 <script src="main.js"></script>

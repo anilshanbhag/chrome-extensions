@@ -1,7 +1,7 @@
 {
   "name": "Speech Recognizer",
   "description": "Offline speech recognizer for chrome.",
-  "version": "5.0",
+  "version": "5.2",
   "app": {
     "launch": {
       "local_path": "index.html"
