@@ -1,7 +1,9 @@
-  $(function(){
+$(function(){
 
 var select_dialect = document.getElementById('select_dialect'),
     select_language = document.getElementById('select_language');
+
+var currentFile = "default";
 
 var langs =
 [['Afrikaans',       ['af-ZA']],
@@ -77,17 +79,112 @@ function updateCountry() {
   }
   select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
 
-  console.log('In 2');
+  localStorage['country'] = select_language.selectedIndex;
 }
 
 function updateLanguage() {
   var list = langs[select_language.selectedIndex];
   select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
-  console.log('In 1');
-
+  localStorage['dialect'] = select_dialect.selectedIndex;  
   document.getElementById('voiceBtn').setAttribute('lang', list[select_dialect.selectedIndex + 1][0]);
 }
 
+function updateVoiceBtn() {
+  var editorOffset = $('#editor').offset();
+  var offsetTop = editorOffset.top ;
+  var offsetLeft = editorOffset.left + $('#editor').innerWidth() - 60;
+  $('#voiceBtn').css('position','absolute').offset({top: offsetTop, left: offsetLeft});
+}
+
+function getEntries() {
+  if(!localStorage['fileEntries']) return {};
+  return JSON.parse(localStorage['fileEntries']);
+}
+
+function createFile() {
+  var fileName = document.querySelector('#fileName').value,
+    entries = getEntries();
+
+  if (!fileName) {
+    $('#createError').css('display', 'block');
+    $('#createError').html('Filename empty!');
+    return;
+  }
+  
+  if (!entries) {
+    entries = {};
+  }
+
+  if (fileName in entries) {
+    $('#createError').css('display', 'block');
+    $('#createError').html('Filename already exists!');
+    return;    
+  }
+
+  entries[currentFile] = document.getElementById('editor').innerHTML;
+  entries[fileName] = "";
+
+  currentFile = fileName;
+  $('#noteTitle').html(fileName + ' note');
+
+  localStorage['fileEntries'] = JSON.stringify(entries);
+  $('#createFileModal').modal('hide');
+}
+
+function openFile(fileName) {
+  var entries = getEntries();
+
+  if(!(fileName in entries)) {
+    console.log("Note doesnt exist");
+    return;  
+  }
+
+  entries[currentFile] = document.getElementById('editor').innerHTML;
+  document.getElementById('editor').innerHTML = entries[fileName];
+
+  currentFile = fileName;
+  $('#noteTitle').html(fileName + ' note');
+
+  $('#openFileModal').modal('hide');
+  localStorage['fileEntries'] = JSON.stringify(entries);
+}
+
+function openFileModal() {
+  var fileTable = document.getElementById('fileTable'),
+    entries = getEntries();
+
+  fileTable.innerHTML = "";
+
+  var row = document.createElement('tr');
+  var fileNameColumn = document.createElement('th');
+  fileNameColumn.innerHTML = "Note Name";
+  row.appendChild(fileNameColumn);
+  fileTable.appendChild(row);
+
+  for (i in entries) {
+    if (i) {
+      var row = document.createElement('tr');
+      row.className = "rowSelectable";
+      row.id = i;
+      var fileNameColumn = document.createElement('td');
+      fileNameColumn.innerHTML = i;
+      row.appendChild(fileNameColumn);
+      row.addEventListener('click', function(){ openFile(this.id); }, false);
+      fileTable.appendChild(row);
+    }
+  }
+}
+
+function saveFile(){
+  var entries = getEntries();
+  
+  if (!entries) {
+    entries = {};
+  }
+
+  entries[currentFile] = document.getElementById('editor').innerHTML;
+  localStorage['fileEntries'] = JSON.stringify(entries);  
+}
 
 function initToolbarBootstrapBindings() {
   var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
@@ -106,9 +203,12 @@ function initToolbarBootstrapBindings() {
     var overlay = $(this), target = $(overlay.data('target')); 
     overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
   });
+
   if ("onwebkitspeechchange"  in document.createElement("input")) {
     var editorOffset = $('#editor').offset();
-    $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-50});
+    var offsetTop = editorOffset.top ;
+    var offsetLeft = editorOffset.left + $('#editor').innerWidth() - 60;
+    $('#voiceBtn').css('position','absolute').offset({top: offsetTop, left: offsetLeft});
   } else {
     $('#voiceBtn').hide();
   }
@@ -118,15 +218,49 @@ select_language.addEventListener('change', function() { updateCountry(); }, fals
 select_dialect.addEventListener('change', function() { updateLanguage(); }, false);
 select_language.addEventListener('change', function() { updateLanguage(); }, false);
 
-for (var i = 0; i < langs.length; i++) {
-  select_language.options[i] = new Option(langs[i][0], i);
-}
+document.querySelector('#fileCreate').addEventListener('click', function() { 
+  createFile(); 
+}, false);
+document.querySelector('#openFile').addEventListener('click', function() { 
+  openFileModal();
+}, false);
+document.querySelector('#saveFile').addEventListener('click', function() { 
+  saveFile(); 
+}, false);
 
-select_language.selectedIndex = 6;
-updateCountry();
-select_dialect.selectedIndex = 6;
+document.addEventListener("keydown", function(e) {
+  // CTRL S
+  if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+    e.preventDefault();
+    saveFile(); 
+  }  // CTRL N
+  else if (e.keyCode == 77 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+    e.preventDefault();
+    $('#createFileModal').modal('show');
+  }  // CTRL O
+  else if (e.keyCode == 79 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+    e.preventDefault();
+    openFileModal();
+    $('#openFileModal').modal('show');
+  }
+}, false);
 
-initToolbarBootstrapBindings();  
-$('#editor').wysiwyg();
-window.prettyPrint && prettyPrint();
+  if(navigator.onLine) {
+    $('#fb-div').html('<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fexzalt&amp;send=false&amp;layout=standard&amp;width=300&amp;show_faces=true&amp;font&amp;colorscheme=light&amp;action=like&amp;height=80&amp;appId=138086856292147" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:80px;" allowTransparency="true"></iframe>');
+  }
+
+  for (var i = 0; i < langs.length; i++) {
+    select_language.options[i] = new Option(langs[i][0], i);
+  }
+
+  select_language.selectedIndex = localStorage['country'] || 6;
+  updateCountry();
+  select_dialect.selectedIndex = localStorage['dialect'] || 6;
+  updateLanguage();
+
+
+
+  initToolbarBootstrapBindings();  
+  $('#editor').wysiwyg();
+  window.prettyPrint && prettyPrint();
 });
